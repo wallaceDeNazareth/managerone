@@ -17,29 +17,27 @@ and open the template in the editor.
     <body class="container">
         <br/>
 
-
+		
+		<div class="row"><label id="1p">Remplissez le formulaire pour ajouter un Utilisateur</label></div>
         <div class="row">
-            <label id="1p">Remplissez le formulaire pour ajouter un User</label><hr/>
-            <div class="col-md-3"><input type="text" name="nom" id="nom" placeholder="entrez le nom"></div>
-            <div class="col-md-3"><input type="email" name="email" id="email" placeholder="entrez l\'email"></div>
+            
+            <div class="col-md-3"><input type="text" name="nom" id="nom" placeholder="entrez le nom" class="form-control"></div>
+            <div class="col-md-3"><input type="email" name="email" id="email" placeholder="entrez l'email" class="form-control"></div>
             <div class="col-md-3"><input type="button" value="valider" name="btn" id="btn" class="btn btn-primary"></div>
         </div><hr/>
-
-        <div id="tb" class="row">
-
-            <div class="col-md-3">
-                <input type="button" value="Charger les Users" name="btnList" id="btnList" class="btn btn-success">
-            </div>
-            <div class="col-md-5"></div>
-            <div class="col-md-4">
+	
+	
+		<div class="row"><label id="2p">Remplissez le formulaire pour ajouter une Task</label></div>
+        <div id="tb" class="row">                      
+           
                 <!-- Ajouter une Task -->
-                <label id="1p">Remplissez le formulaire pour ajouter une Task</label>
-                <div class="col-md-3"><input type="text" name="title" id="title" placeholder="entrez le title"></div>
-                <div class="col-md-3"><input type="text" name="descp" id="descp" placeholder="entrez la description"></div>
-                <div class="col-md-3"><input type="date" name="creation_date" id="creation_date" placeholder="entrez la date"></div>
-                <div class="col-md-3"><input type="text" name="status" id="status" placeholder="entrez le status"></div>
-                <div class="col-md-3">
-                    <input type="number" name="user_id" id="user_id" placeholder="entrez user id">
+                
+                <div class="col-md-2"><input type="text" name="title" id="title" placeholder="entrez le title" class="form-control"></div>
+                <div class="col-md-2"><input type="text" name="descp" id="descp" placeholder="entrez la description" class="form-control"></div>
+                <div class="col-md-2"><input type="date" name="creation_date" id="creation_date" placeholder="entrez la date" class="form-control"></div>
+                <div class="col-md-2"><input type="text" name="status" id="status" placeholder="entrez le status" class="form-control"></div>
+                <div class="col-md-2">
+                    <input type="number" name="user_id" id="user_id" placeholder="entrez user_id" class="form-control">
 <!--                    <select name="user_id" id="user_id">
                         <option value="">Select User</option>
                         <option value="saab">Saab</option>
@@ -47,9 +45,16 @@ and open the template in the editor.
                         <option value="audi">Audi</option>
                     </select> -->
                 </div>
-                <div class="col-md-3"><input type="button" value="Creer la tache" name="btnTask" id="btnTask" class="btn btn-info"></div>
+                <div class="col-md-2"><input type="button" value="Creer la tache" name="btnTask" id="btnTask" class="btn btn-info"></div>
+            
+        </div><hr/>
+		
+		<div class="row">
+		<div class="col-md-3">
+                <input type="button" value="Charger les Users" name="btnList" id="btnList" class="btn btn-success">
             </div>
-        </div>
+		</div>
+		
         <hr/>
         <div class="row">
             <div id="datatab" class="col-md-7"> <!--  style="display: none; float: left;" -->
