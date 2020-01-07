@@ -11,9 +11,6 @@ class Task {
     private $conn;
     private $table_name = 'task';
 
-    // retourne le nom
-
-
     public function __construct($db) {
         $this->conn = $db;
     }

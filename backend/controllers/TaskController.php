@@ -9,8 +9,8 @@
 class TaskController {
 
     public function view($task_id) {
-        $task = new Task($task_id);
-        var_dump($task);
+        /*$task = new Task($task_id);
+        var_dump($task);*/
     }
 
     public function home() {

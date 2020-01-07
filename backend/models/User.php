@@ -1,6 +1,5 @@
 <?php
 
-//namespace \models;
 class User {
 
     private $id;
@@ -8,8 +7,6 @@ class User {
     private $email;
     private $conn;
     private $table_name = 'user';
-
-    // retourne le nom
 
     public function __construct($db) {
         $this->conn = $db;
@@ -40,7 +37,7 @@ class User {
     }
 
     public function read() {
-        //select all data
+
         $query = "SELECT
                     id, name, email
                 FROM
@@ -92,9 +89,7 @@ class User {
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(1, $id);
-        $stmt->execute(); //array($user_id)
-//        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        $stmt->execute(); 
         return $stmt;
     }
 
@@ -102,7 +97,7 @@ class User {
 
         $user = $this->readUser($id);
 
-      
+
         $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
 
         $stmt = $this->conn->prepare($query);
