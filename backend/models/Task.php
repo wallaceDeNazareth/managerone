@@ -86,7 +86,7 @@ class Task {
             $stmt->execute(array($title, $description, $creation_date, $status, $user_id));
             return "execution ok !";
         } catch (Exception $e) {
-
+            
             return $e->getMessage();
         }
     }
