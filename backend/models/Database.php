@@ -2,25 +2,19 @@
 
 class Database {
 
-    // specify your own database credentials
-    private $host = "localhost";
-    private $db_name = "managerone";
-    private $username = "root";
-    private $password = "";
-    public $conn;
+    public static $conn1;
 
-    // get the database connection
     public static function getConnection() {
 
-        $this->conn = null;
+        self::$conn1 = null;
 
         try {
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            self::$conn1 = new PDO("mysql:host=localhost;dbname=managerone", "root", "");
         } catch (PDOException $exception) {
             echo "Connection error: " . $exception->getMessage();
         }
 
-        return $this->conn;
+        return self::$conn1;
     }
 
 }
