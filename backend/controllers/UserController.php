@@ -7,7 +7,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/managerone/backend/models/Database.php');
 class UserController {
 
     public function addUser($name = null, $email = null) {
-//        $database = new Database();
+
         $db = Database::getConnection();
         $user = new User($db);
         $response = ["status" => 0, "msg" => ""];
@@ -26,7 +26,7 @@ class UserController {
     }
 
     public function listUser() {
-//        $database = new Database();
+
         $db = Database::getConnection();
         $usr = new User($db);
 
@@ -70,7 +70,7 @@ class UserController {
       } */
 
     public function getUser($id) {
-//        $database = new Database();
+
         $db = Database::getConnection();
         $usr = new User($db);
         $util = $usr->readUser($id);
@@ -95,7 +95,7 @@ class UserController {
     }
 
     public function getTasks($id) {
-//        $database = new Database();
+
         $db = Database::getConnection();
         $usr = new User($db);
 
@@ -130,7 +130,7 @@ class UserController {
     }
 
     public function deleteUser($id) {
-//        $database = new Database();
+
         $db = Database::getConnection();
         $user = new User($db);
         $msg = $user->deleteUser($id);
