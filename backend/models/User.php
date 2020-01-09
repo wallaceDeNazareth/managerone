@@ -89,24 +89,44 @@ class User {
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(1, $id);
-        $stmt->execute(); 
+        $stmt->execute();
         return $stmt;
+    }
+
+    public function countTasks($id) {
+        $query = "SELECT COUNT(*) FROM task WHERE user_id = ?";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(1, $id);
+        $stmt->execute();
+        return $stmt->fetchColumn();
     }
 
     public function deleteUser($id) {
 
         $user = $this->readUser($id);
 
-
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $id);
-        if ($stmt->execute()) {
-            return $msg = $user['name'] . '(' . $user['email'] . ') supprimé avec success !';
-        } else {
-            return $msg = $user['name'] . '(' . $user['email'] . ') non supprimé !';
+        /** deb supp tasks * */
+        foreach ($this->listTask($id) AS $tsk) {
+            $taskObj = new Task($this->conn);
+            $taskObj->deleteTask($lt['id']);
         }
+        /** fin supp list tasks * */
+        /** supp de l'user * */
+        if ($this->countTasks($id) == 0) {
+            $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(1, $id);
+            if ($stmt->execute()) {
+                return $msg = $user['name'] . '(' . $user['email'] . ') supprimé avec success !';
+            } else {
+                return $msg = $user['name'] . '(' . $user['email'] . ') non supprimé !';
+            }
+        } else {
+            return $msg = $user['name'] . '(' . $user['email'] . ') non supprimé car possède encore une liste de tâche !';
+        }
+        /** fin supp de l'user * */
     }
 
 }

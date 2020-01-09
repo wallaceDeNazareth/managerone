@@ -1,26 +1,10 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class TaskController {
 
-    public function view($task_id) {
-        /*$task = new Task($task_id);
-        var_dump($task);*/
-    }
-
-    public function home() {
-
-        include ($_SERVER['DOCUMENT_ROOT'] . '/managerone/view/task/index_task.php');
-    }
-
     public function readAll() {
-        $database = new Database();
-        $db = $database->getConnection();
+//        $database = new Database();
+        $db = Database::getConnection();
         $task = new Task($db);
         $user = new User($db);
 
@@ -34,8 +18,8 @@ class TaskController {
     }
 
     public function addTask($title, $description, $creation_date, $status, $user_id) {
-        $database = new Database();
-        $db = $database->getConnection();
+//        $database = new Database();
+        $db = Database::getConnection();
         $task = new Task($db);
         $msg_return = $task->addTask($title, $description, $creation_date, $status, $user_id);
         $mss = 'Task : ' . $title . ' , Description : ' . $description . ' ajouté avec succès !';
@@ -48,8 +32,8 @@ class TaskController {
     }
 
     public function deleteTask($id) {
-        $database = new Database();
-        $db = $database->getConnection();
+//        $database = new Database();
+        $db = Database::getConnection();
         $task = new Task($db);
         $mss = $task->deleteTask($id);
 

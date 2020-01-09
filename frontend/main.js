@@ -45,7 +45,7 @@ $('#btn').click(function() {
 
         },
         error: function() {
-            alert('Error Nok');
+            alert('Veuillez remplir les champs !');
             //JSONErrorFun()
         }
     });
@@ -124,6 +124,23 @@ function deleteUser(k) {
 }
 
 function affTask(k) {
+    var nomUser = "";
+    var emailUser = "";
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: '/../managerone/backend/index.php?action=user/getUser&id=' + k,
+        success: function(data) {
+            if (data.status == 1) {
+                nomUser = data.data.name;
+                emailUser = data.data.email;
+            }
+        },
+        error: function() {
+            aler('getUser function not Work ! Try again later');
+        }
+    });
+
     $.ajax({
         type: "GET",
         url: '/../managerone/backend/index.php?action=user/getTasks&id=' + k,
@@ -159,12 +176,16 @@ function affTask(k) {
                     alert("Tab vide");
                 }
             } else {
-                alert(data.msg);
+//                alert(data.msg);
+                var tmp = '<label><h4><span class="badge badge-warning">Pas de Tâche pour l\'user ' + nomUser + '(email: ' + emailUser + ')</span></h4></label>';
+                $('#datatask').html(tmp);
             }
 
         },
         error: function() {
-            alert('Error pas de valeurs renvoyé');
+            var tmp = '<label class="label">Pas de Tâche l\'user ' + nomUser + '(email: ' + emailUser + ') pour cet utilisateur<span></span></label>';
+            $('#datatask').html(tmp);
+//            alert('Error pas de valeurs renvoyé');
             //JSONErrorFun()
         }
     });

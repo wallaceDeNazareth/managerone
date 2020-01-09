@@ -7,8 +7,8 @@ require($_SERVER['DOCUMENT_ROOT'] . '/managerone/backend/models/Database.php');
 class UserController {
 
     public function addUser($name = null, $email = null) {
-        $database = new Database();
-        $db = $database->getConnection();
+//        $database = new Database();
+        $db = Database::getConnection();
         $user = new User($db);
         $response = ["status" => 0, "msg" => ""];
         if (!empty($name) && !empty($email)) {
@@ -26,8 +26,8 @@ class UserController {
     }
 
     public function listUser() {
-        $database = new Database();
-        $db = $database->getConnection();
+//        $database = new Database();
+        $db = Database::getConnection();
         $usr = new User($db);
 
         $tab = [];
@@ -54,24 +54,24 @@ class UserController {
         echo json_encode($response);
     }
 
-    /*public function listU() {
-        $database = new Database();
-        $db = $database->getConnection();
-        $usr = new User($db);
+    /* public function listU() {
+      //$database = new Database();
+      $db = Database::getConnection();
+      $usr = new User($db);
 
-        echo '<option value="0" >*** Choix de l\'User ***</option>';
-        foreach ($usr->read() AS $user) {
-            if (!empty($user)) {
-                echo '<option value="' . $user['id'] . '" > ' . $user['name'] . '</option>';
-            } else {
-                echo '<option>Aucun reglement enregistré</option>';
-            }
-        }
-    }*/
+      echo '<option value="0" >*** Choix de l\'User ***</option>';
+      foreach ($usr->read() AS $user) {
+      if (!empty($user)) {
+      echo '<option value="' . $user['id'] . '" > ' . $user['name'] . '</option>';
+      } else {
+      echo '<option>Aucun reglement enregistré</option>';
+      }
+      }
+      } */
 
     public function getUser($id) {
-        $database = new Database();
-        $db = $database->getConnection();
+//        $database = new Database();
+        $db = Database::getConnection();
         $usr = new User($db);
         $util = $usr->readUser($id);
 
@@ -93,8 +93,8 @@ class UserController {
     }
 
     public function getTasks($id) {
-        $database = new Database();
-        $db = $database->getConnection();
+//        $database = new Database();
+        $db = Database::getConnection();
         $usr = new User($db);
 
         $tab = [];
@@ -129,8 +129,8 @@ class UserController {
     }
 
     public function deleteUser($id) {
-        $database = new Database();
-        $db = $database->getConnection();
+//        $database = new Database();
+        $db = Database::getConnection();
         $user = new User($db);
         $msg = $user->deleteUser($id);
 
