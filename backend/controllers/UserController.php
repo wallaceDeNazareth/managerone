@@ -75,8 +75,8 @@ class UserController {
         $usr = new User($db);
         $util = $usr->readUser($id);
 
-        $tab['name'] = $util['name'];
-        $tab['email'] = $util['email'];
+        $tab['name'] = $util->getName();
+        $tab['email'] = $util->getEmail();
 
         $response = [];
         $response['status'] = 1;
