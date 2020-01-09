@@ -18,14 +18,14 @@ $(document).ready(function() {
             },
             error: function() {
                 affTask(user_id);
-                alert('Er d\'ajout de task !');
+//                alert('Er d\'ajout de task !');
                 //JSONErrorFun()
             }
         });
     });
 
     $('#btn').click(function() {
-        
+
         var name = $('#nom').val();
         var email = $('#email').val();
 
@@ -56,51 +56,55 @@ $(document).ready(function() {
         listUser();
     });
 
-    function listUser() {
-        $.ajax({
-            type: "GET",
-            url: '/../managerone/backend/index.php?action=user/listUser',
-            dataType: "json",
-            success: function(data) {
-                // do somethings
+});
 
-                if (data.status == 1) {
-                    var taille = data.data.length;
-                    if (taille > 0) {
-                        // fabrication d tablau html
-                        var entete = '<table class="table table-condensed table-hover table-striped">';
-                        entete += "<tr><th>#</th>";
-                        entete += "<th>Nom</th>";
-                        entete += "<th>Email</th>";
-                        entete += "<th>Action</th></tr>";
+function listUser() {
+    $.ajax({
+        type: "GET",
+        url: '/../managerone/backend/index.php?action=user/listUser',
+        dataType: "json",
+        success: function(data) {
+            // do somethings
+
+            if (data.status == 1) {
+                var taille = data.data.length;
+                if (taille > 0) {
+                    // fabrication d tablau html
+                    var entete = '<table class="table table-condensed table-hover table-striped">';
+                    entete += "<tr><th>#</th>";
+                    entete += "<th>Nom</th>";
+                    entete += "<th>Email</th>";
+                    entete += "<th>Action</th></tr>";
 
 
-                        for (i = 0; i < taille; i++) {
-                            entete += "<tr><td>" + data.data[i].id + "</td>";
-                            entete += "<td>" + data.data[i].name + "</td>";
-                            entete += "<td>" + data.data[i].email + "</td>";
-                            entete += '<td><button href="#" onClick="affTask(' + data.data[i].id + ')">Afficher les tâches</button>';
-                            entete += '<button href="#" onClick="deleteUser(' + data.data[i].id + ')">Supprimer User</button></td></tr>';
-                        }
-                        entete += "</table>";
-
-                        $('#datatab').html(entete);
-
-                    } else {
-                        alert("Tab vide");
+                    for (i = 0; i < taille; i++) {
+                        entete += "<tr><td>" + data.data[i].id + "</td>";
+                        entete += "<td>" + data.data[i].name + "</td>";
+                        entete += "<td>" + data.data[i].email + "</td>";
+                        entete += '<td><button href="#" onClick="affTask(' + data.data[i].id + ')">Afficher les tâches</button>';
+                        entete += '<button href="#" onClick="deleteUser(' + data.data[i].id + ')">Supprimer User</button></td></tr>';
                     }
-                } else {
-                    alert(data.msg);
-                }
+                    entete += "</table>";
 
-            },
-            error: function() {
-                alert('Error pas de valeurs renvoyé');
-                //JSONErrorFun()
+                    $('#datatab').html(entete);
+
+                } else {
+                    alert("Tab vide");
+                }
+            } else {
+                alert(data.msg);
             }
-        });
-    }
-    function deleteUser(k) {
+
+        },
+        error: function() {
+            alert('Error pas de valeurs renvoyé');
+            //JSONErrorFun()
+        }
+    });
+}
+function deleteUser(k) {
+    if (confirm('Voulez-vous vraiment supprimer cet User?') == true) {
+
         $.ajax({
             type: "GET",
             url: '/../managerone/backend/index.php?action=user/deleteUser' + '&id=' + k,
@@ -114,6 +118,7 @@ $(document).ready(function() {
                 }
                 affTask(k);
                 listUser(); //rafraichir la liste des User
+                $('#datatask').html('<label><span></span></label>');
 
             },
             error: function() {
@@ -122,76 +127,78 @@ $(document).ready(function() {
             }
         });
     }
+}
 
-    function affTask(k) {
-        var nomUser = "";
-        var emailUser = "";
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: '/../managerone/backend/index.php?action=user/getUser&id=' + k,
-            success: function(data) {
-                if (data.status == 1) {
-                    nomUser = data.data.name;
-                    emailUser = data.data.email;
-                }
-            },
-            error: function() {
-                aler('getUser function not Work ! Try again later');
+function affTask(k) {
+    var nomUser = "";
+    var emailUser = "";
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: '/../managerone/backend/index.php?action=user/getUser&id=' + k,
+        success: function(data) {
+            if (data.status == 1) {
+                nomUser = data.data.name;
+                emailUser = data.data.email;
             }
-        });
+        },
+        error: function() {
+//                alert('getUser function not Work ! Try again later');
+        }
+    });
 
-        $.ajax({
-            type: "GET",
-            url: '/../managerone/backend/index.php?action=user/getTasks&id=' + k,
-            dataType: "json",
-            success: function(data) {
-                // do somethings
+    $.ajax({
+        type: "GET",
+        url: '/../managerone/backend/index.php?action=user/getTasks&id=' + k,
+        dataType: "json",
+        success: function(data) {
+            // do somethings
 
-                if (data.status == 1) {
-                    var taille = data.data.length;
-                    if (taille > 0) {
-                        // fabrication d tablau html
-                        var entete = '<table class="table table-condensed table-hover table-striped">';
-                        entete += "<tr><th>ID Task</th>";
-                        entete += "<th>Title</th>";
-                        entete += "<th>Description</th>";
-                        entete += "<th>Date de Creation</th>";
-                        entete += "<th>Status</th><th>action</th></tr>";
+            if (data.status == 1) {
+                var taille = data.data.length;
+                if (taille > 0) {
+                    // fabrication d tablau html
+                    var entete = '<table class="table table-condensed table-hover table-striped">';
+                    entete += "<tr><th>ID Task</th>";
+                    entete += "<th>Title</th>";
+                    entete += "<th>Description</th>";
+                    entete += "<th>Date de Creation</th>";
+                    entete += "<th>Status</th><th>action</th></tr>";
 
 
-                        for (i = 0; i < taille; i++) {
-                            entete += "<tr><td>" + data.data[i].id + "</td>";
-                            entete += "<td>" + data.data[i].title + "</td>";
-                            entete += "<td>" + data.data[i].description + "</td>";
-                            entete += "<td>" + data.data[i].creation_date + "</td>";
-                            entete += "<td>" + data.data[i].status + "</td>";
-                            entete += '<td><button href="#" onClick="deleteTask(' + data.data[i].id + ',' + data.data[i].user_id + ')">Delete</button></td></tr>';
-                        }
-                        entete += "</table>";
-
-                        $('#datatask').html(entete);
-
-                    } else {
-                        alert("Tab vide");
+                    for (i = 0; i < taille; i++) {
+                        entete += "<tr><td>" + data.data[i].id + "</td>";
+                        entete += "<td>" + data.data[i].title + "</td>";
+                        entete += "<td>" + data.data[i].description + "</td>";
+                        entete += "<td>" + data.data[i].creation_date + "</td>";
+                        entete += "<td>" + data.data[i].status + "</td>";
+                        entete += '<td><button href="#" onClick="deleteTask(' + data.data[i].id + ',' + data.data[i].user_id + ')">Delete</button></td></tr>';
                     }
+                    entete += "</table>";
+
+                    $('#datatask').html(entete);
+
                 } else {
-//                alert(data.msg);
-                    var tmp = '<label><h4><span class="badge badge-warning">Pas de Tâche pour l\'user ' + nomUser + '(email: ' + emailUser + ')</span></h4></label>';
-                    $('#datatask').html(tmp);
+                    alert("Tab vide");
                 }
-
-            },
-            error: function() {
-                var tmp = '<label class="label">Pas de Tâche l\'user ' + nomUser + '(email: ' + emailUser + ') pour cet utilisateur<span></span></label>';
+            } else {
+//                alert(data.msg);
+                var tmp = '<label><h4><span class="badge badge-warning">Pas de Tâche pour l\'user ' + nomUser + '(email: ' + emailUser + ')</span></h4></label>';
                 $('#datatask').html(tmp);
-//            alert('Error pas de valeurs renvoyé');
-                //JSONErrorFun()
             }
-        });
-    }
 
-    function deleteTask(k, i) {
+        },
+        error: function() {
+            var tmp = '<label class="label">Pas de Tâche l\'user ' + nomUser + '(email: ' + emailUser + ') pour cet utilisateur<span></span></label>';
+            $('#datatask').html(tmp);
+//            alert('Error pas de valeurs renvoyé');
+            //JSONErrorFun()
+        }
+    });
+}
+
+function deleteTask(k, i) {
+    if (confirm('Voulez-vous vraiment supprimer cette tâche?') == true) {
         $.ajax({
             type: "GET",
             url: '/../managerone/backend/index.php?action=task/deleteTask' + '&id=' + k,
@@ -212,4 +219,4 @@ $(document).ready(function() {
             }
         });
     }
-});
+}

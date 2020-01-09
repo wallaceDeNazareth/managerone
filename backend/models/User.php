@@ -2,11 +2,11 @@
 
 class User {
 
-    private $id;
-    private $name;
-    private $email;
-    private $conn;
-    private $table_name = 'user';
+    protected $id;
+    protected $name;
+    protected $email;
+    protected $conn;
+    protected $table_name = 'user';
 
     public function __construct($db) {
         $this->conn = $db;
@@ -109,7 +109,7 @@ class User {
         /** deb supp tasks * */
         foreach ($this->listTask($id) AS $tsk) {
             $taskObj = new Task($this->conn);
-            $taskObj->deleteTask($lt['id']);
+            $taskObj->deleteTask($tsk['id']);
         }
         /** fin supp list tasks * */
         /** supp de l'user * */

@@ -2,14 +2,14 @@
 
 class Task {
 
-    private $id;
-    private $title;
-    private $description;
-    private $creation_date;
-    private $status;
-    private $user_id;
-    private $conn;
-    private $table_name = 'task';
+    protected $id;
+    protected $title;
+    protected $description;
+    protected $creation_date;
+    protected $status;
+    protected $user_id;
+    protected $conn;
+    protected $table_name = 'task';
 
     public function __construct($db) {
         $this->conn = $db;
@@ -86,7 +86,7 @@ class Task {
             $stmt->execute(array($title, $description, $creation_date, $status, $user_id));
             return "execution ok !";
         } catch (Exception $e) {
-            
+
             return $e->getMessage();
         }
     }
