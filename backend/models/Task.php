@@ -116,7 +116,19 @@ class Task {
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $row;
+        //return $row;
+        
+        if (!empty($row)) {
+            $this->setTitle($row['title']);
+            $this->setDescription($row['Description']);
+            $this->setCreation_date($row['creation_date']);
+            $this->setStatus($row['status']);
+            $this->setUser_id($row['user_id']);
+            return $this;
+        } else {
+            $ret = null;
+            return $ret;
+        }
     }
 
     public function deleteTask($id) {

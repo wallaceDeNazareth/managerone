@@ -125,8 +125,7 @@ class UserController {
         }
 
         $response['data'] = $tab;
-
-
+        
         echo json_encode($response);
     }
 

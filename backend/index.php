@@ -10,9 +10,14 @@ $userC = new UserController();
 $taskC = new TaskController();
 
 
-if (isset($_GET['action']) && $_GET['action'] == 'task/addTask') { // && isset($_GET['title']) && isset($_GET['description']) && isset($_GET['creation_date']) && isset($_GET['status']) && isset($_GET['user_id'])
-    echo json_encode($_GET);
+if (isset($_GET['action']) && $_GET['action'] == 'task/addTask' && isset($_GET['title']) && isset($_GET['description']) && isset($_GET['creation_date']) && isset($_GET['status']) && isset($_GET['user_id'])) {
+    //echo json_encode($_GET);
     $taskC->addTask($_GET['title'], $_GET['description'], $_GET['creation_date'], $_GET['status'], $_GET['user_id']);
+}
+
+if (isset($_GET['action']) && $_GET['action'] == 'task/readAll') { // && isset($_GET['title']) && isset($_GET['description']) && isset($_GET['creation_date']) && isset($_GET['status']) && isset($_GET['user_id'])
+    //echo json_encode($_GET);
+    $taskC->readAll();
 }
 
 if (isset($_GET['action']) && isset($_GET['user_id'])) {

@@ -3,18 +3,39 @@
 class TaskController {
 
     public function readAll() {
-//        $database = new Database();
+
         $db = Database::getConnection();
         $task = new Task($db);
-        $user = new User($db);
+        //$user = new User($db);
 
-//        echo json_encode($task->readAllTask());
-
+        $tab = [];
+        $stab = [];
         foreach ($task->readAllTask() AS $tsk) {
-            $tab_usr = $user->readUser($tsk['user_id']);
-            echo $tsk['id'] . ' ' . $tsk['title'] . ' ' . $tsk['description'] . ' '
-            . $tsk['creation_date'] . ' ' . $tsk['status'] . ' ' . $tab_usr['name'] . '<br/>';
+
+            $stab['id'] = $tsk['id'];
+            $stab['title'] = $tsk['title'];
+            $stab['description'] = $tsk['description'];
+            $stab['creation_date'] = $tsk['creation_date'];
+            $stab['status'] = $tsk['status'];
+            $stab['user_id'] = $tsk['user_id'];
+
+            $tab[] = $stab;
         }
+
+
+        $response = [];
+        $response['status'] = 1;
+
+        if (!empty($tab)) {
+            $response['msg'] = "Status ok";
+        } else {
+            $response['status'] = 0;
+            $response['msg'] = "Aucune Task";
+        }
+
+        $response['data'] = $tab;
+
+        echo json_encode($response);
     }
 
     public function addTask($title, $description, $creation_date, $status, $user_id) {
