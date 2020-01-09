@@ -7,19 +7,23 @@ $(document).ready(function() {
         var creation_date = $('#creation_date').val();
         var status = $('#status').val();
         var user_id = $('#user_id').val();
+
         $.ajax({
             type: "GET",
             url: '/../managerone/backend/index.php?action=task/addTask&title=' + title + '&description=' + description + '&creation_date=' + creation_date + '&status=' + status + '&user_id=' + user_id,
             dataType: "json",
             success: function(data) {
                 // do somethings
-                affTask(user_id);
-                alert("Task ajouté avec succes");
+                if (data.status == 1) {
+                    affTask(user_id);
+                    alert(data.msg);
+                } else {
+                    msg1 = data.msg;
+                    alert(data.msg);
+                }
             },
             error: function() {
                 affTask(user_id);
-//                alert('Er d\'ajout de task !');
-                //JSONErrorFun()
             }
         });
     });
@@ -113,16 +117,17 @@ function deleteUser(k) {
                 // do somethings
                 if (data.status == 1) {
                     alert(data.msg);
-                } else {
+                } else if (data.status == 0) {
                     alert(data.msg);
                 }
                 affTask(k);
                 listUser(); //rafraichir la liste des User
-                $('#datatask').html('<label><span></span></label>');
 
             },
             error: function() {
-                alert('Pas de suppression');
+                affTask(k);
+                listUser();
+//                alert('Pas de suppression');
                 //JSONErrorFun()
             }
         });
@@ -132,6 +137,7 @@ function deleteUser(k) {
 function affTask(k) {
     var nomUser = "";
     var emailUser = "";
+    var state = 0;
     $.ajax({
         type: "GET",
         dataType: "json",
@@ -140,6 +146,9 @@ function affTask(k) {
             if (data.status == 1) {
                 nomUser = data.data.name;
                 emailUser = data.data.email;
+                state = 1;
+            } else {
+                state = 0;
             }
         },
         error: function() {
@@ -182,15 +191,24 @@ function affTask(k) {
                     alert("Tab vide");
                 }
             } else {
-//                alert(data.msg);
-                var tmp = '<label><h4><span class="badge badge-warning">Pas de Tâche pour l\'user ' + nomUser + '(email: ' + emailUser + ')</span></h4></label>';
-                $('#datatask').html(tmp);
+                if (state == 1) {
+                    var tmp = '<label><h4><span class="badge badge-warning">Pas de Tâche pour l\'user ' + nomUser + '(email: ' + emailUser + ')</span></h4></label>';
+                    $('#datatask').html(tmp);
+                } else {
+                    var tmp = '<label><h4><span class="badge badge-danger">Aucune donnée trouvée</span></h4></label>';
+                    $('#datatask').html(tmp);
+                }
             }
 
         },
         error: function() {
-            var tmp = '<label class="label">Pas de Tâche l\'user ' + nomUser + '(email: ' + emailUser + ') pour cet utilisateur<span></span></label>';
-            $('#datatask').html(tmp);
+            if (state == 1) {
+                var tmp = '<label class="label">Pas de Tâche l\'user ' + nomUser + '(email: ' + emailUser + ') pour cet utilisateur<span></span></label>';
+                $('#datatask').html(tmp);
+            } else {
+                var tmp = '<label><h4><span class="badge badge-danger">Aucune donnée trouvée</span></h4></label>';
+                $('#datatask').html(tmp);
+            }
 //            alert('Error pas de valeurs renvoyé');
             //JSONErrorFun()
         }

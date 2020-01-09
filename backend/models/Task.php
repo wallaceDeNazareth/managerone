@@ -79,15 +79,30 @@ class Task {
 
     public function addTask($title, $description, $creation_date, $status, $user_id) {
 
-        try {
-            $sql = "INSERT INTO task (title, description, creation_date, status, user_id) VALUES (?, ?, ?, ?, ?)";
-            $stmt = $this->conn->prepare($sql);
+        $user = new User($this->conn);
 
-            $stmt->execute(array($title, $description, $creation_date, $status, $user_id));
-            return "execution ok !";
-        } catch (Exception $e) {
-            
-            return $e->getMessage();
+        if (!empty($user->readUser($user_id))) {
+            try {
+                $sql = "INSERT INTO task (title, description, creation_date, status, user_id) VALUES (?, ?, ?, ?, ?)";
+                $stmt = $this->conn->prepare($sql);
+
+                $stmt->execute(array($title, $description, $creation_date, $status, $user_id));
+
+                $mss = 'Task : ' . $title . ' , Description : ' . $description . ' ajouté avec succès !';
+                $state = 1;
+
+                //return "ajout de task ok !";
+                return ['mss' => $mss, 'state' => $state];
+            } catch (Exception $e) {
+
+                return $e->getMessage();
+            }
+        } else {
+
+            $mss = 'L\'user n\'existe pas !';
+            $state = 0;
+            return ['mss' => $mss, 'state' => $state];
+            //return 'L\'user n\'existe pas !';
         }
     }
 

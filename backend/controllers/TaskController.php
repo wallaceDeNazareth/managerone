@@ -21,12 +21,12 @@ class TaskController {
 //        $database = new Database();
         $db = Database::getConnection();
         $task = new Task($db);
-        $msg_return = $task->addTask($title, $description, $creation_date, $status, $user_id);
-        $mss = 'Task : ' . $title . ' , Description : ' . $description . ' ajouté avec succès !';
+        $tb_return = $task->addTask($title, $description, $creation_date, $status, $user_id);
+//        $mss = 'Task : ' . $title . ' , Description : ' . $description . ' ajouté avec succès !';
 
         $response = [];
-        $response['status'] = 1;
-        $response['msg'] = $mss;
+        $response['status'] = $tb_return['state'];
+        $response['msg'] = $tb_return['mss'];
 
         echo json_encode($response);
     }

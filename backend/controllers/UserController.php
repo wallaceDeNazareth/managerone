@@ -83,8 +83,10 @@ class UserController {
 
         if (!empty($tab)) {
             $response['msg'] = "Status ok";
+            $response['status'] = 1;
         } else {
             $response['msg'] = "Status Nok";
+            $response['status'] = 0;
         }
 
         $response['data'] = $tab;

@@ -73,11 +73,14 @@ class User {
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                
-        $this->setName($row['name']) ;
-        $this->setEmail($row['email']);
-        
-        return $this;
+        if (!empty($row)) {
+            $this->setName($row['name']);
+            $this->setEmail($row['email']);
+            return $this;
+        } else {
+            $ret = null;
+            return $ret;
+        }
     }
 
     public function addUser($name, $email) {
