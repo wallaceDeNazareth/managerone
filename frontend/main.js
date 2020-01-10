@@ -128,8 +128,6 @@ function deleteUser(k) {
                 listUser();
                 affTask(k);
 
-//                alert('Pas de suppression');
-                //JSONErrorFun()
             }
         });
     }
@@ -210,8 +208,6 @@ function affTask(k) {
                 var tmp = '<label><h4><span class="badge badge-danger">Aucune donnée trouvée</span></h4></label>';
                 $('#datatask').html(tmp);
             }
-//            alert('Error pas de valeurs renvoyé');
-            //JSONErrorFun()
         }
     });
 }
@@ -233,8 +229,6 @@ function deleteTask(k, i) {
             },
             error: function() {
                 affTask(i);
-//                alert('Pas de suppression');
-                //JSONErrorFun()
             }
         });
     }

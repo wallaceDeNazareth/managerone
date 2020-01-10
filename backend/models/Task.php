@@ -64,7 +64,7 @@ class Task {
     }
 
     public function readAllTask() {
-        //select all data
+
         $query = "SELECT
                     id, title, description, creation_date, status, user_id
                 FROM
@@ -100,7 +100,6 @@ class Task {
             $mss = 'L\'user n\'existe pas !';
             $state = 0;
             return ['mss' => $mss, 'state' => $state];
-            //return 'L\'user n\'existe pas !';
         }
     }
 

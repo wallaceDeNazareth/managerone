@@ -6,8 +6,7 @@ class TaskController {
 
         $db = Database::getConnection();
         $task = new Task($db);
-        //$user = new User($db);
-
+        
         $tab = [];
         $stab = [];
         foreach ($task->readAllTask() AS $tsk) {
@@ -39,11 +38,10 @@ class TaskController {
     }
 
     public function addTask($title, $description, $creation_date, $status, $user_id) {
-//        $database = new Database();
+
         $db = Database::getConnection();
         $task = new Task($db);
         $tb_return = $task->addTask($title, $description, $creation_date, $status, $user_id);
-//        $mss = 'Task : ' . $title . ' , Description : ' . $description . ' ajouté avec succès !';
 
         $response = [];
         $response['status'] = $tb_return['state'];
@@ -53,7 +51,7 @@ class TaskController {
     }
 
     public function deleteTask($id) {
-//        $database = new Database();
+
         $db = Database::getConnection();
         $task = new Task($db);
         $mss = $task->deleteTask($id);

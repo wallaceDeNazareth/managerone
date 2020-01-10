@@ -16,7 +16,7 @@ class MainController {
             if ($_GET['action'] == 'task/addTask') {
 
                 if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['creation_date']) && isset($_GET['status']) && isset($_GET['user_id']) && !empty($_GET['title']) && !empty($_GET['description']) && !empty($_GET['creation_date']) && !empty($_GET['status']) && !empty($_GET['user_id'])) {
-                    // && is_int($_GET['user_id']) && !empty($_GET['title']) && !empty($_GET['description']) && !empty($_GET['creation_date']) && !empty($_GET['status']) && !empty($_GET['user_id'])
+                    
                     $title = htmlentities($_GET['title'], ENT_QUOTES);
                     $description = htmlentities($_GET['description'], ENT_QUOTES);
                     $creation_date = htmlentities($_GET['creation_date'], ENT_QUOTES);
