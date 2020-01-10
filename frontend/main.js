@@ -125,8 +125,9 @@ function deleteUser(k) {
 
             },
             error: function() {
-                affTask(k);
                 listUser();
+                affTask(k);
+
 //                alert('Pas de suppression');
                 //JSONErrorFun()
             }
@@ -231,8 +232,8 @@ function deleteTask(k, i) {
                 }
             },
             error: function() {
-
-                alert('Pas de suppression');
+                affTask(i);
+//                alert('Pas de suppression');
                 //JSONErrorFun()
             }
         });

@@ -125,12 +125,12 @@ class User {
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(1, $id);
             if ($stmt->execute()) {
-                return $msg = $user['name'] . '(' . $user['email'] . ') supprimé avec success !';
+                return $msg = $user->name . '(' . $user->email . ') supprimé avec success !';
             } else {
-                return $msg = $user['name'] . '(' . $user['email'] . ') non supprimé !';
+                return $msg = $user->name . '(' . $user->email . ') non supprimé !';
             }
         } else {
-            return $msg = $user['name'] . '(' . $user['email'] . ') non supprimé car possède encore une liste de tâche !';
+            return $msg = $user->name . '(' . $user->email . ') non supprimé car possède encore une liste de tâche !';
         }
         /** fin supp de l'user * */
     }

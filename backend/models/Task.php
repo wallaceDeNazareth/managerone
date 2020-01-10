@@ -91,10 +91,8 @@ class Task {
                 $mss = 'Task : ' . $title . ' , Description : ' . $description . ' ajouté avec succès !';
                 $state = 1;
 
-                //return "ajout de task ok !";
                 return ['mss' => $mss, 'state' => $state];
             } catch (Exception $e) {
-
                 return $e->getMessage();
             }
         } else {
@@ -117,10 +115,10 @@ class Task {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         //return $row;
-        
+
         if (!empty($row)) {
             $this->setTitle($row['title']);
-            $this->setDescription($row['Description']);
+            $this->setDescription($row['description']);
             $this->setCreation_date($row['creation_date']);
             $this->setStatus($row['status']);
             $this->setUser_id($row['user_id']);
@@ -140,9 +138,9 @@ class Task {
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id);
         if ($stmt->execute()) {
-            return $msg = $task['title'] . '(' . $task['description'] . ') supprimé avec success !';
+            return $msg = $task->title . '(' . $task->description . ') supprimé avec success !';
         } else {
-            return $msg = $task['title'] . '(' . $task['description'] . ') non supprimé !';
+            return $msg = $task->title . '(' . $task->description . ') non supprimé !';
         }
     }
 
