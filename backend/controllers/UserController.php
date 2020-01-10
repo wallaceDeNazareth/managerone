@@ -29,7 +29,7 @@ class UserController {
 
         $db = Database::getConnection();
         $usr = new User($db);
-
+        
         $tab = [];
         $stab = [];
 
@@ -142,4 +142,4 @@ class UserController {
         echo json_encode($response);
     }
 
-}
+} 
