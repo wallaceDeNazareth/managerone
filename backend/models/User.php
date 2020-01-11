@@ -8,8 +8,12 @@ class User {
     protected $conn;
     protected $table_name = 'user';
 
-    public function __construct($db) {
-        $this->conn = $db;
+    public function __construct($db = null) {
+        if (isset($db) && !empty($db)) {
+            $this->conn = $db;
+        } else {
+            $this->conn = Database::getConnection();
+        }
     }
 
     public function getId() {

@@ -7,7 +7,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/managerone/backend/models/Database.php');
 class UserController {
 
     public function addUser($name = null, $email = null) {
-
+        
         $db = Database::getConnection();
         $user = new User($db);
         $response = ["status" => 0, "msg" => ""];
@@ -29,7 +29,7 @@ class UserController {
 
         $db = Database::getConnection();
         $usr = new User($db);
-        
+
         $tab = [];
         $stab = [];
 
@@ -125,7 +125,7 @@ class UserController {
         }
 
         $response['data'] = $tab;
-        
+
         echo json_encode($response);
     }
 
@@ -142,4 +142,4 @@ class UserController {
         echo json_encode($response);
     }
 
-} 
+}
