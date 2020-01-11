@@ -41,6 +41,7 @@ $(document).ready(function() {
                 // do somethings
                 if (data.status == 1) {
                     listUser();
+                    
                     alert(data.msg);
                 } else {
                     alert(data.msg);
@@ -53,6 +54,7 @@ $(document).ready(function() {
                 //JSONErrorFun()
             }
         });
+       
     });
 
 
@@ -128,7 +130,9 @@ function listUser() {
 
                 } else {
                     alert("Tab vide");
-                }
+                }               
+                
+                
             } else {
                 alert(data.msg);
             }

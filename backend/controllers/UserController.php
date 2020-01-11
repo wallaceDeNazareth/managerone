@@ -2,14 +2,18 @@
 
 require($_SERVER['DOCUMENT_ROOT'] . '/managerone/backend/models/User.php');
 require($_SERVER['DOCUMENT_ROOT'] . '/managerone/backend/models/Task.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/managerone/backend/models/Database.php');
 
 class UserController {
 
+    protected $conn;
+
+    public function __construct($db) {
+        $this->conn = $db;
+    }
+
     public function addUser($name = null, $email = null) {
 
-        $db = Database::getConnection();
-        $user = new User($db);
+        $user = new User($this->conn);
         $response = ["status" => 0, "msg" => ""];
         if (!empty($name) && !empty($email)) {
             $user->addUser($name, $email);
@@ -27,8 +31,7 @@ class UserController {
 
     public function listUser() {
 
-        $db = Database::getConnection();
-        $usr = new User($db);
+        $usr = new User($this->conn);
 
         $tab = [];
         $stab = [];
@@ -55,9 +58,8 @@ class UserController {
     }
 
     public function listusropt() {
-        //$database = new Database();
-        $db = Database::getConnection();
-        $usr = new User($db);
+        
+        $usr = new User($this->conn);
 
         echo '<option value="0" >*** Choix de l\'User ***</option>';
         foreach ($usr->read() AS $user) {
@@ -71,8 +73,7 @@ class UserController {
 
     public function getUser($id) {
 
-        $db = Database::getConnection();
-        $usr = new User($db);
+        $usr = new User($this->conn);
         $util = $usr->readUser($id);
 
         $tab['name'] = $util->getName();
@@ -96,8 +97,7 @@ class UserController {
 
     public function getTasks($id) {
 
-        $db = Database::getConnection();
-        $usr = new User($db);
+        $usr = new User($this->conn);
 
         $tab = [];
         $stab = [];
@@ -131,8 +131,7 @@ class UserController {
 
     public function deleteUser($id) {
 
-        $db = Database::getConnection();
-        $user = new User($db);
+        $user = new User($this->conn);
         $msg = $user->deleteUser($id);
 
         $response = [];

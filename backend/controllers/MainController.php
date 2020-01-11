@@ -2,13 +2,15 @@
 
 require('UserController.php');
 require('TaskController.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/managerone/backend/models/Database.php');
 
 class MainController {
 
     public function runApp() {
-
-        $userC = new UserController();
-        $taskC = new TaskController();
+        
+        $db = Database::getConnection();
+        $userC = new UserController($db);
+        $taskC = new TaskController($db);
 
 
         if (isset($_GET['action'])) {

@@ -2,11 +2,16 @@
 
 class TaskController {
 
+    protected $conn;
+
+    public function __construct($db) {
+        $this->conn = $db;
+    }
+
     public function readAll() {
 
-        $db = Database::getConnection();
-        $task = new Task($db);
-        
+        $task = new Task($this->conn);
+
         $tab = [];
         $stab = [];
         foreach ($task->readAllTask() AS $tsk) {
@@ -39,8 +44,7 @@ class TaskController {
 
     public function addTask($title, $description, $creation_date, $status, $user_id) {
 
-        $db = Database::getConnection();
-        $task = new Task($db);
+        $task = new Task($this->conn);
         $tb_return = $task->addTask($title, $description, $creation_date, $status, $user_id);
 
         $response = [];
@@ -52,8 +56,7 @@ class TaskController {
 
     public function deleteTask($id) {
 
-        $db = Database::getConnection();
-        $task = new Task($db);
+        $task = new Task($this->conn);
         $mss = $task->deleteTask($id);
 
         $response = [];
