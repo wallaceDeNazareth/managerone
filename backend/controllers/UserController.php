@@ -7,7 +7,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/managerone/backend/models/Database.php');
 class UserController {
 
     public function addUser($name = null, $email = null) {
-        
+
         $db = Database::getConnection();
         $user = new User($db);
         $response = ["status" => 0, "msg" => ""];
@@ -54,20 +54,20 @@ class UserController {
         echo json_encode($response);
     }
 
-    /* public function listU() {
-      //$database = new Database();
-      $db = Database::getConnection();
-      $usr = new User($db);
+    public function listusropt() {
+        //$database = new Database();
+        $db = Database::getConnection();
+        $usr = new User($db);
 
-      echo '<option value="0" >*** Choix de l\'User ***</option>';
-      foreach ($usr->read() AS $user) {
-      if (!empty($user)) {
-      echo '<option value="' . $user['id'] . '" > ' . $user['name'] . '</option>';
-      } else {
-      echo '<option>Aucun reglement enregistré</option>';
-      }
-      }
-      } */
+        echo '<option value="0" >*** Choix de l\'User ***</option>';
+        foreach ($usr->read() AS $user) {
+            if (!empty($user)) {
+                echo '<option value="' . $user['id'] . '" > ' . $user['name'] . '</option>';
+            } else {
+                echo '<option>Aucun reglement enregistré</option>';
+            }
+        }
+    }
 
     public function getUser($id) {
 

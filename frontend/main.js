@@ -60,7 +60,43 @@ $(document).ready(function() {
         listUser();
     });
 
+
+    majopt();
 });
+
+function majopt() {
+    /* MAJ Select */
+    $.ajax({
+        type: "GET",
+        url: '/../managerone/backend/index.php?action=user/listUser',
+        dataType: "json",
+        success: function(data) {
+            // do somethings
+
+//            $('select#user_id1').html(data);
+            daySelect = document.getElementById('user_id');
+            if (data.status == 1) {
+                var taille = data.data.length;
+                if (taille > 0) {
+                    for (i = 0; i < taille; i++) {
+                        daySelect.options[daySelect.options.length] = new Option(data.data[i].name, data.data[i].id);
+                    }
+
+                } else {
+
+                }
+            } else {
+
+            }
+
+        },
+        error: function() {
+//            alert('Veuillez remplir les champs !');
+            //JSONErrorFun()
+        }
+    });
+    /* Fin MAJ Select */
+}
 
 function listUser() {
     $.ajax({
