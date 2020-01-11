@@ -73,7 +73,6 @@ function majopt() {
         success: function(data) {
             // do somethings
 
-//            $('select#user_id1').html(data);
             daySelect = document.getElementById('user_id');
             if (data.status == 1) {
                 var taille = data.data.length;
@@ -91,8 +90,7 @@ function majopt() {
 
         },
         error: function() {
-//            alert('Veuillez remplir les champs !');
-            //JSONErrorFun()
+
         }
     });
     /* Fin MAJ Select */
