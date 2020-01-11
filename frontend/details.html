@@ -24,32 +24,34 @@
 
     </body>
     <script type="text/javascript">
-        /*$(document).ready(function() {
-         var idHidd = $('#inpHidd').val();
-         
-         $.ajax({
-         type: "GET",
-         url: '/../managerone/backend/index.php?action=user/getUser' + '&id=' + idHidd,
-         dataType: "json",
-         success: function(data) {
-         // do somethings
-         
-         var aff = "";
-         
-         if (data.status == 1) {
-         aff += '<label>Nom : ' + data.data.name + '</label><br/>';
-         aff += '<label>Email : ' + data.data.email + '</label><hr/>';
-         } else {
-         alert(data.msg);
-         }
-         
-         },
-         error: function() {
-         alert('Error Nok');
-         //JSONErrorFun()
-         }
-         });
-         });
-         });*/
+        $(document).ready(function() {
+            var idHidd = $('#inpHidd').val();
+            
+            alert(id);
+            
+            /*  $.ajax({
+             type: "GET",
+             url: '/../managerone/backend/index.php?action=user/getUser' + '&id=' + idHidd,
+             dataType: "json",
+             success: function(data) {
+             // do somethings
+             
+             var aff = "";
+             
+             if (data.status == 1) {
+             aff += '<label>Nom : ' + data.data.name + '</label><br/>';
+             aff += '<label>Email : ' + data.data.email + '</label><hr/>';
+             } else {
+             alert(data.msg);
+             }
+             
+             },
+             error: function() {
+             alert('Error Nok');
+             //JSONErrorFun()
+             }
+             });*/
+        });
+
     </script>
 </html>

@@ -119,8 +119,8 @@ function listUser() {
                         entete += "<tr><td>" + data.data[i].id + "</td>";
                         entete += "<td>" + data.data[i].name + "</td>";
                         entete += "<td>" + data.data[i].email + "</td>";
-                        entete += '<td><button href="#" onClick="affTask(' + data.data[i].id + ')">Afficher les tâches</button>';
-                        entete += '<button href="#" onClick="deleteUser(' + data.data[i].id + ')">Supprimer User</button></td></tr>';
+                        entete += '<td><button href="#" onClick="affTask(' + data.data[i].id + ')">Liste des tâches</button>';
+                        entete += '<button href="#" onClick="deleteUser(' + data.data[i].id + ')">Supprimer</button></td></tr>';                        
                     }
                     entete += "</table>";
 
@@ -135,11 +135,11 @@ function listUser() {
 
         },
         error: function() {
-            alert('Error pas de valeurs renvoyé');
-            //JSONErrorFun()
+            alert('Error pas de valeurs renvoyé');            
         }
     });
 }
+
 function deleteUser(k) {
     if (confirm('Voulez-vous vraiment supprimer cet User?') == true) {
 
