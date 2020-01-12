@@ -1,5 +1,7 @@
 $(document).ready(function() {
     listUser();
+    viderChampsUser();
+    viderChampsTask();
 
     $('#btnTask').click(function() {
         var title = $('#title').val();
@@ -7,6 +9,7 @@ $(document).ready(function() {
         var creation_date = $('#creation_date').val();
         var status = $('#status').val();
         var user_id = $('#user_id').val();
+        viderChampsTask();
 
         $.ajax({
             type: "GET",
@@ -32,6 +35,7 @@ $(document).ready(function() {
 
         var name = $('#nom').val();
         var email = $('#email').val();
+        viderChampsUser();
 
         $.ajax({
             type: "GET",
@@ -41,7 +45,7 @@ $(document).ready(function() {
                 // do somethings
                 if (data.status == 1) {
                     listUser();
-                    
+
                     alert(data.msg);
                 } else {
                     alert(data.msg);
@@ -54,7 +58,6 @@ $(document).ready(function() {
                 //JSONErrorFun()
             }
         });
-       
     });
 
 
@@ -122,7 +125,7 @@ function listUser() {
                         entete += "<td>" + data.data[i].name + "</td>";
                         entete += "<td>" + data.data[i].email + "</td>";
                         entete += '<td><button href="#" onClick="affTask(' + data.data[i].id + ')">Liste des tâches</button>';
-                        entete += '<button href="#" onClick="deleteUser(' + data.data[i].id + ')">Supprimer</button></td></tr>';                        
+                        entete += '<button href="#" onClick="deleteUser(' + data.data[i].id + ')">Supprimer</button></td></tr>';
                     }
                     entete += "</table>";
 
@@ -130,16 +133,16 @@ function listUser() {
 
                 } else {
                     alert("Tab vide");
-                }               
-                
-                
+                }
+
+
             } else {
                 alert(data.msg);
             }
 
         },
         error: function() {
-            alert('Error pas de valeurs renvoyé');            
+            alert('Error pas de valeurs renvoyé');
         }
     });
 }
@@ -270,4 +273,17 @@ function deleteTask(k, i) {
             }
         });
     }
+}
+
+function viderChampsTask() {
+    $('#title').val('');
+    $('#descp').val('');
+    $('#creation_date').val('');
+    $('#status').val('');
+    $('#user_id').val('');
+}
+
+function viderChampsUser() {
+    $('#nom').val('');
+    $('#email').val('');
 }

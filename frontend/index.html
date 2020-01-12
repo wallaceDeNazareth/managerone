@@ -31,7 +31,15 @@
             <div class="col-md-2"><input type="text" name="title" id="title" placeholder="entrez le title" class="form-control"></div>
             <div class="col-md-2"><input type="text" name="descp" id="descp" placeholder="entrez la description" class="form-control"></div>
             <div class="col-md-2"><input type="date" name="creation_date" id="creation_date" placeholder="entrez la date" class="form-control"></div>
-            <div class="col-md-2"><input type="text" name="status" id="status" placeholder="entrez le status" class="form-control"></div>
+            <div class="col-md-2">
+                <!--  <input type="text" name="status" id="status" placeholder="entrez le status" class="form-control"> -->
+                <select name="status" id="status" class="form-control">
+                    <option value="">Select status</option>
+                    <option value="Non commencée">Non commencée</option>
+                    <option value="En cours">En cours</option>
+                    <option value="Terminé">Terminé</option>
+                </select>
+            </div>
             <div class="col-md-2">
                 <!-- <input type="number" name="user_id" id="user_id" placeholder="entrez user_id" class="form-control">-->
                 <select name="user_id" id="user_id" class="form-control">
