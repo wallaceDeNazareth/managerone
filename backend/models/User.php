@@ -94,7 +94,7 @@ class User {
     }
 
     public function countTasks($id) {
-        
+
         $count = Requete::countRow($this->conn, 'task', 'user_id', $id);
         return $count;
     }
@@ -111,11 +111,11 @@ class User {
         /** fin supp list tasks * */
         /** supp de l'user * */
         if ($this->countTasks($id) == 0) {
-            $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+          /*  $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
 
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(1, $id);
-            if ($stmt->execute()) {
+            $stmt->bindParam(1, $id);*/
+            if (Requete::deleteItem($this->conn, $this->table_name, 'id', $id)) {
                 return $msg = $user->name . '(' . $user->email . ') supprimé avec success !';
             } else {
                 return $msg = $user->name . '(' . $user->email . ') non supprimé !';
