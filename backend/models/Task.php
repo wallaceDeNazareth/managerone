@@ -1,7 +1,5 @@
 <?php
 
-//require('Requete.php');
-
 class Task {
 
     protected $id;
@@ -13,6 +11,8 @@ class Task {
     protected $conn;
     protected $table_name = 'task';
     protected $colonnes = ' * ';
+    protected $colonneList = 'title, description, creation_date, status, user_id';
+    protected $nbCol = 5;
     protected $listAllTasks = [];
 
     public function __construct($db = null) {
@@ -21,6 +21,15 @@ class Task {
         } else {
             $this->conn = Database::getConnection();
         }
+    }
+
+    public function __construct1($id, $title, $description, $creation_date, $status, $user_id) {
+        $this->id = $id;
+        $this->title = $title;
+        $this->description = $description;
+        $this->creation_date = $creation_date;
+        $this->status = $status;
+        $this->user_id = $user_id;
     }
 
     public function getId() {
@@ -86,15 +95,15 @@ class Task {
 
         if (!empty($user->readUser($user_id))) {
             try {
-                $sql = "INSERT INTO task (title, description, creation_date, status, user_id) VALUES (?, ?, ?, ?, ?)";
-                $stmt = $this->conn->prepare($sql);
 
-                $stmt->execute(array($title, $description, $creation_date, $status, $user_id));
-
-                $mss = 'Task : ' . $title . ' , Description : ' . $description . ' ajouté avec succès !';
-                $state = 1;
-
-                return ['mss' => $mss, 'state' => $state];
+                if (Requete::addItem($this->conn, $this->table_name, $this->colonneList, $this->nbCol, array($title, $description, $creation_date, $status, $user_id))) {
+                    $mss = 'Task : ' . $title . ' , Description : ' . $description . ' ajouté avec succès !';
+                    $state = 1;
+                    return ['mss' => $mss, 'state' => $state];
+                } else {
+                    $state = 0;
+                    return ['mss' => "Task non ajoutée", 'state' => $state];
+                }
             } catch (Exception $e) {
                 return $e->getMessage();
             }

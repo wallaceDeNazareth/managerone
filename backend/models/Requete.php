@@ -49,12 +49,26 @@ Class Requete {
         } else {
             return false;
         }
+    }
 
-        /*  $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+    public static function addItem($dbConnexion, $tableName, $colList, $nbCol, $tabValue) {
+        $bnd = "";
+        for ($i = 1; $i <= $nbCol; $i++) {
+            if ($i == $nbCol) {
+                $bnd .= "?";
+            } else {
+                $bnd .= "?,";
+            }
+        }
 
-          $stmt = $this->conn->prepare($query);
-          $stmt->bindParam(1, $id);
-          $stmt->execute() */
+        $sql = "INSERT INTO " . $tableName . " (" . $colList . ") VALUES (" . $bnd . ")";
+        $stmt = $dbConnexion->prepare($sql);
+
+        if ($stmt->execute($tabValue)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

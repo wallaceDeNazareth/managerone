@@ -12,6 +12,8 @@ class User {
     protected $listUserTasks = [];
     protected $table_name = 'user';
     protected $colonnes = ' * ';
+    protected $colonneList = 'name, email';
+    protected $nbCol = 2;
 
     public function __construct($db = null) {
         if (isset($db) && !empty($db)) {
@@ -78,9 +80,14 @@ class User {
     }
 
     public function addUser($name, $email) {
-        $query = "INSERT INTO user (name, email) VALUES (?, ?)";
-        $req = $this->conn->prepare($query);
-        $req->execute(array($name, $email));
+        
+        if (Requete::addItem($this->conn, $this->table_name, $this->colonneList, $this->nbCol, array($name, $email))) {
+            $state = 1;
+            return ['mss' => 'User ajouté', 'state' => $state];
+        } else {
+            $state = 0;
+            return ['mss' => "User non ajoutée", 'state' => $state];
+        }
     }
 
     public function listTask($id) {
@@ -111,10 +118,7 @@ class User {
         /** fin supp list tasks * */
         /** supp de l'user * */
         if ($this->countTasks($id) == 0) {
-          /*  $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
-
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(1, $id);*/
+           
             if (Requete::deleteItem($this->conn, $this->table_name, 'id', $id)) {
                 return $msg = $user->name . '(' . $user->email . ') supprimé avec success !';
             } else {
