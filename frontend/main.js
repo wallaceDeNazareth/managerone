@@ -54,8 +54,7 @@ $(document).ready(function() {
 
             },
             error: function() {
-                alert('Veuillez remplir les champs !');
-                //JSONErrorFun()
+                alert('Veuillez remplir les champs !');                
             }
         });
     });
@@ -155,14 +154,14 @@ function deleteUser(k) {
             url: '/../managerone/backend/index.php?action=user/deleteUser' + '&id=' + k,
             dataType: "json",
             success: function(data) {
-                // do somethings
+                
                 if (data.status == 1) {
                     alert(data.msg);
                 } else if (data.status == 0) {
                     alert(data.msg);
                 }
                 affTask(k);
-                listUser(); //rafraichir la liste des User
+                listUser(); 
 
             },
             error: function() {
@@ -192,7 +191,7 @@ function affTask(k) {
             }
         },
         error: function() {
-//                alert('getUser function not Work ! Try again later');
+
         }
     });
 
@@ -201,8 +200,7 @@ function affTask(k) {
         url: '/../managerone/backend/index.php?action=user/getTasks&id=' + k,
         dataType: "json",
         success: function(data) {
-            // do somethings
-
+          
             if (data.status == 1) {
                 var taille = data.data.length;
                 if (taille > 0) {

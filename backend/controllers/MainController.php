@@ -98,10 +98,7 @@ class MainController {
                     echo json_encode($response);
                 }
             } else {
-               /* $response = [];
-                $response['status'] = 0;
-                $response['msg'] = "Mauvaise requete3";
-                echo json_encode($response);*/
+              
             }
         }
     }
