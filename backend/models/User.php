@@ -1,11 +1,15 @@
 <?php
 
+require('Requete.php');
+
 class User {
 
     protected $id;
     protected $name;
     protected $email;
     protected $conn;
+    protected $listUsers = [];
+    protected $listUserTasks = [];
     protected $table_name = 'user';
     protected $colonnes = ' * ';
 
@@ -49,34 +53,20 @@ class User {
 
     public function read() {
 
-        $query = "SELECT
-                    id, name, email
-                FROM
-                    " . $this->table_name . "
-                ORDER BY
-                    name ASC";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-
-        return $stmt;
+        $stmt = Requete::readAllItems($this->conn, $this->table_name, $this->colonnes, 'ASC', 'ORDER BY name');
+        foreach ($stmt AS $user) {
+            $this->listUsers[] = $user;
+        }
+        return $this->listUsers;
     }
 
     public function readName() {
 
-        $query = "SELECT name FROM " . $this->table_name . " WHERE id = ? limit 0,1";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->id);
-        $stmt->execute();
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $this->name = $row['name'];
+        $this->name = Requete::readOneCol($this->conn, $this->table_name, 'name', 'id', $this->id);
     }
 
     public function readUser($id) {
-        $row = Database::readItemById($this->table_name, $this->colonnes, 'id', $id);
+        $row = Requete::readItemById($this->conn, $this->table_name, $this->colonnes, 'id', $id);
         if (!empty($row)) {
             $this->setName($row['name']);
             $this->setEmail($row['email']);
@@ -95,21 +85,18 @@ class User {
 
     public function listTask($id) {
 
-        $query = "SELECT * FROM task WHERE user_id = ? order by title ASC";
+        $stmt = Requete::readAllItems($this->conn, 'task', ' * ', 'ASC', 'ORDER BY title', 'WHERE user_id=', $id);
 
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(1, $id);
-        $stmt->execute();
-        return $stmt;
+        foreach ($stmt AS $task) {
+            $this->listUserTasks[] = $task;
+        }
+        return $this->listUserTasks;
     }
 
     public function countTasks($id) {
-        $query = "SELECT COUNT(*) FROM task WHERE user_id = ?";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(1, $id);
-        $stmt->execute();
-        return $stmt->fetchColumn();
+        
+        $count = Requete::countRow($this->conn, 'task', 'user_id', $id);
+        return $count;
     }
 
     public function deleteUser($id) {

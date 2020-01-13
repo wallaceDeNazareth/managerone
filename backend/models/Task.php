@@ -1,4 +1,5 @@
 <?php
+//require('Requete.php');
 
 class Task {
 
@@ -110,7 +111,8 @@ class Task {
 
     public function readTask($id) {
         
-        $row = Database::readItemById($this->table_name, $this->colonnes, 'id', $id);
+        $row = Requete::readItemById($this->conn,$this->table_name, $this->colonnes, 'id', $id);
+                    
         if (!empty($row)) {
             $this->setTitle($row['title']);
             $this->setDescription($row['description']);
