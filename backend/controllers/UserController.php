@@ -58,7 +58,7 @@ class UserController {
     }
 
     public function listusropt() {
-        
+
         $usr = new User($this->conn);
 
         echo '<option value="0" >*** Choix de l\'User ***</option>';

@@ -10,6 +10,7 @@ class Task {
     protected $user_id;
     protected $conn;
     protected $table_name = 'task';
+    protected $colonnes = ' * ';
 
     public function __construct($db = null) {
         if (isset($db) && !empty($db)) {
@@ -108,17 +109,8 @@ class Task {
     }
 
     public function readTask($id) {
-
-        $query = "SELECT * FROM " . $this->table_name . " WHERE id = ?";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        //return $row;
-
+        
+        $row = Database::readItemById($this->table_name, $this->colonnes, 'id', $id);
         if (!empty($row)) {
             $this->setTitle($row['title']);
             $this->setDescription($row['description']);

@@ -7,6 +7,7 @@ class User {
     protected $email;
     protected $conn;
     protected $table_name = 'user';
+    protected $colonnes = ' * ';
 
     public function __construct($db = null) {
         if (isset($db) && !empty($db)) {
@@ -14,6 +15,12 @@ class User {
         } else {
             $this->conn = Database::getConnection();
         }
+    }
+
+    public function __construct1($id, $name, $email) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
     }
 
     public function getId() {
@@ -69,14 +76,7 @@ class User {
     }
 
     public function readUser($id) {
-
-        $query = "SELECT name, email FROM " . $this->table_name . " WHERE id = ?";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $id);
-        $stmt->execute();
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = Database::readItemById($this->table_name, $this->colonnes, 'id', $id);
         if (!empty($row)) {
             $this->setName($row['name']);
             $this->setEmail($row['email']);
